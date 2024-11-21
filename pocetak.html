@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="Pravoslavni Molitvenik ">
+    <meta name="keywords" content="Православни Молитвеник, Pravoslavni Molitvenik, Душанов Молитвеник, Dusanov Molitvenik, Molitva, Molitve, Молитва, Pravoslavno, Православље,">
+    <meta name="author" content="Душанов">
+<style>
+@font-face {
+	font-family: orto;
+	src: url('dusanov.otf') format('opentype');
+
+}
+@font-face {
+	font-family: monah;
+	src: url('monah.otf') format('opentype');
+
+}
+
+
+body {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	
+	font-family: orto;
+	background-color: #11100e;
+	color: #c8bca5;
+	text-align: center;
+	font-size: 25px;
+}
+input {
+	border-radius: 10px;
+	outline: none;
+	font-family: orto;
+	width: 250px;
+	height: 50px;
+	background-color: #2d2a25;
+	color: #c8bca5;
+	border: none;
+	padding-left: 10px;
+	font-size: 25px;
+}
+button {
+	border-radius: 10px;
+	font-family: orto;
+	width: 110px;
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 60px;
+	background-color: #2d2a25;
+	color: #c8bca5;
+	border: 5px solid #c8bca5;
+	font-size: 20px;
+
+}
+button:active {
+	background-color: white;
+	color: #1d3b6c;
+	border: none;
+} 
+div {
+margin: 10px;
+	
+}
+#opcije {
+	display: grid;
+	margin: 0px;
+}
+select {
+	background-color: #2d2a25;
+	font-size: 25px;
+	width: 300px;
+	border: none;
+	padding: 5px;
+	border-radius: 10px;
+	color: #c8bca5;
+}
+img {
+	height: 230px;
+	margin-top: 10px;
+	border: 1px solid #c8bca5;
+}
+p {
+margin: 2px;
+}
+#tekst {
+	font-family: monah;
+}
+
+</style>
+</head>
+<body>
+
+
+
+
+
+<div id="opcije" class="opcije">
+	<p>ПРИЛАГОДИТЕ МОЛИТВЕНИК</p>
+	<div>
+		<label>Име : </label>
+		<input id="unos" placeholder="Душан" onclick="document.getElementById('unos').placeholder = ''"> 
+	</div>
+	<div style="margin-bottom: 10px; display: grid; justify-content: center;">
+		<label>Икона : </label>
+		<select id="Икона">
+		<option value="Господ" onclick="ikona(value)" selected>Господ Исус Христос</option>
+		<option value="Богородица" onclick="ikona(value)">Света Богородица</option>
+		<option value="СветиЈован" onclick="ikona(value)">Свети Јован</option>
+		<option value="СветиГеоргије" onclick="ikona(value)">Свети Георгије</option>
+		<option value="СветиСава" onclick="ikona(value)">Свети Сава</option>
+		<option value="СветиНикола" onclick="ikona(value)">Свети Никола</option>
+		<option value="СветиВасилије" onclick="ikona(value)">Свети Василије</option>
+		<option value="СветаПетка" onclick="ikona(value)">Света Петка</option>
+		<option value="СветиСимеон" onclick="ikona(value)">Свети Симеон</option>
+		<option value="СветиКнез" onclick="ikona(value)">Свети Кнез Лазар</option>
+		<option value="nista" onclick="ikona(value)">Не желим икону</option>
+	    	</select>
+	<img id="ikona" src="ikone/Господ.jpg" style="justify-self: center;">
+	</div>
+	<div style="margin-bottom: 30px;">
+		<label>Фонт:</label>
+		
+		<select id="font">
+		<option value="monah" onclick="promeni(value,0)" selected>МонахOCS З.Костић</option>
+		<option value="orto" onclick="promeni(value,0)">Орто РНИДС</option>
+	    	</select>
+	</div>
+	<div style="background-color: black; color: white; padding: 10px; border-radius: 15px;">
+		<p style="font-size: 15px;" id="tekst">У име Оца и Сина и Светога Духа. Амин</p>
+	</div>
+	<div style="margin: 0px; display: grid; justify-content: center;">
+		<label>Величина фонта : </label>
+		
+		 <input type="range" id="fonts" min="15" max="40"  oninput="promeni(0,this.value)">
+	</div>
+</div>
+
+<div style="margin-top: 5px;">
+	
+	<button onclick="sledece()">Сaчувај</button>
+</div>
+<p style="font-size: 15px; font-family: monospace;">Душанова Технологија</p>
+
+
+<script>
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+function ikona(broj) {
+	var ikone = document.getElementById('ikona');	
+			ikone.src = "ikone/"+broj+".jpg"
+	
+
+}
+function promeni(font,velicina) {
+	
+	document.getElementById('tekst').style.fontFamily = font;
+
+	if(velicina != 0) {
+		document.getElementById('tekst').style.fontSize = velicina + "px";
+	
+	}
+
+
+
+}
+
+function sledece() {
+
+	ime = document.getElementById("unos").value;
+	
+	
+	
+	zastitnik = document.getElementById("Икона").value;
+	font = document.getElementById("font").value;
+	fonts = document.getElementById("fonts").value;
+
+	console.log(ime+"\n",zastitnik+"\n",font+"\n",fonts)
+	document.cookie = `{ "ime":"${ime}", "zastitnik":"${zastitnik}", "font":"${font}", "fonts":"${fonts}"}`
+
+	window.location.href='pocetna.html'
+}
+async function main() {
+	if(document.cookie != ""){
+		const kolacic = JSON.parse(document.cookie);
+		selekt = document.getElementById('Икона');
+		
+		selekt.value = kolacic.zastitnik;
+		ikona(kolacic.zastitnik)
+	
+		document.getElementById('unos').value = kolacic.ime
+		
+		document.getElementById('tekst').style.fontSize = kolacic.fonts+"px";
+		document.getElementById('tekst').style.fontFamily = kolacic.font;
+		document.getElementById('fonts').value = kolacic.fonts;
+	
+		document.getElementById('font').value = kolacic.font
+
+		
+	}
+} main()
+</script>
+</body>
+</html>

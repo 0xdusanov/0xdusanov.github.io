@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+   <meta charset="UTF-8">
+    <meta name="description" content="Pravoslavni Molitvenik ">
+    <meta name="keywords" content="Православни Молитвеник, Pravoslavni Molitvenik, Душанов Молитвеник, Dusanov Molitvenik, Molitva, Molitve, Молитва, Pravoslavno, Православље,">
+    <meta name="author" content="Душанов">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+body {
+background-color: #11100e;	
+}
+
+#prozor {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+
+}
+
+.prozor {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+
+}
+.prozor2 {
+width: 80px;
+position: absolute;
+right: 10px;
+top: 10px;
+}
+
+
+.slika {
+width: 200px;
+
+animation: prvafaza 2s forwards; 
+
+}
+
+
+@keyframes prvafaza {
+0% {
+opacity: 0;
+transform: translateY(-300px); 
+}
+100% {
+opacity: 1;
+transform: translateY(0); 
+}
+}
+#zvonca {
+	display: none;
+}
+
+</style>
+</head>
+<body>
+<div id="prozor" class="prozor">
+<img id="slika" class="slika" src="znak.png">
+</div>
+
+<audio id="zvonca" src="audio.mp3" preload="auto"></audio>
+
+
+<script>
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+async function main() {
+	document.getElementById('zvonca').play()
+	await sleep(4000);
+	if (document.cookie == "") {
+		document.location.href = "opcije.html";
+	} else {
+		document.location.href = "pocetna.html";
+	}
+} main()
+</script>
+</body>
+</html>

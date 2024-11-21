@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pravoslavni Molitvenik ">
+    <meta name="keywords" content="Православни Молитвеник, Pravoslavni Molitvenik, Душанов Молитвеник, Dusanov Molitvenik, Molitva, Molitve, Молитва, Pravoslavno, Православље,">
+    <meta name="author" content="Душанов">
+<style>
+
+
+@font-face {
+	font-family: orto;
+	src: url('sadrzaj/ortornids.otf') format('opentype');
+}
+@font-face {
+	font-family: monah;
+	src: url('sadrzaj/monah.otf') format('opentype');
+}
+
+body {
+	font-family: monospace;
+	background-color: #11100e;
+	
+	color: #c8bca5;
+	font-size: 40px;
+	margin: 0px;
+	opacity: 0;
+	transition: opacity 1s ease;
+}
+.loaded {
+	opacity: 1;
+}
+#slika {
+	width: 80px;
+	margin: 5px;
+}
+button {
+	border-radius: 10px;
+	font-family: orto;
+	width: 110px;
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 60px;
+	background-color: #2d2a25;
+	color: #c8bca5;
+	border: 5px solid #c8bca5;
+	font-size: 20px;
+
+}
+button:active {
+	background-color: white;
+	color: #1d3b6c;
+	border: none;
+} 
+.prozor {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+	
+}
+
+
+
+p {
+	margin: 0px;
+	margin-top: 10px;
+}
+.ime {
+	text-align: center;	
+	font-family: monah;
+
+}
+#lista {
+	display: grid;
+	margin-bottom: 100px;
+	justify-content: center;
+
+}
+#lista button {
+	
+	width: 300px;
+	margin-top: 8px;
+	text-align: center;
+	font-size: 25px;
+}
+
+</style>
+</head>
+<body>
+
+	<div id="prozor" class="prozor">
+		<button onclick="window.location.href='pomoc.html'">Помоћ</button>		
+		<img id="slika" class="slika" src="sadrzaj/znak.png">
+		<button onclick="window.location.href='opcije.html'">Опције</button>	
+	</div>
+	
+	<div class="ime">
+		<p id="ime">Ваше име</p>
+	</div>
+	
+	<div id="lista">
+		<button value="МолитваГосподња" onclick="ucitaj(value)">Молитва Господња</button>
+		<button value="Трисвето" onclick="ucitaj(value)">Трисвето</button>
+		<button value="СимболВере" onclick="ucitaj(value)">Симбол Вере</button>
+
+		<button value="Псалам50" onclick="ucitaj(value)">Псалам50</button>
+		<button value="ИсусоваМолитва" onclick="ucitaj(value)">ИсусоваМолитва</button>
+		<button value="ДостојноЈест" onclick="ucitaj(value)">ДостојноЈест</button>
+
+		<button value="МолитваАнђелу" onclick="ucitaj(value)">МолитваАнђелу</button>
+		<button value="БогородицеДјево" onclick="ucitaj(value)">БогородицеДјево</button>
+		<button value="МолитваСветомДуху" onclick="ucitaj(value)">МолитваСветомДуху</button>
+
+		<button value="ХимнаСвСави" onclick="ucitaj(value)">ХимнаСвСави</button>
+		<button value="БрујеТихо" onclick="ucitaj(value)">БрујеТихо</button>
+		
+
+
+	</div>
+
+
+<script>
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function ucitaj(molitva){
+	window.location.href= "molitva.html?м=" +molitva
+	
+ }
+async function main() {
+	if (document.cookie == "") {
+		window.location.href= "opcije.html"
+	}
+	const kolacic = JSON.parse(document.cookie);
+	document.getElementById('ime').innerHTML = "Помаже Бог " + kolacic.ime;
+
+	document.body.classList.add('loaded');
+
+	
+
+}
+main()
+
+
+</script>
+</body>
+</html>

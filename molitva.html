@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Молитва</title>
+<style>
+::-webkit-scrollbar {
+display: none; 
+}
+
+html {
+scrollbar-width: none; 
+}
+
+body {
+-ms-overflow-style: none; 
+}
+@font-face {
+font-family: orto;
+src: url('sadrzaj/ortornids.otf') format('opentype');
+}
+@font-face {
+font-family: monah;
+src: url('sadrzaj/monah.otf') format('opentype');
+}
+body {
+background-color: #0a0f16;
+color: #c8bca5;
+font-size: 30px;
+font-family: monah;
+
+}
+.obasjaj {
+position: absolute;
+width: 100%;
+top: 0px;
+
+left: 0px;
+
+pointer-events: none;
+
+}
+.light {
+display: grid;
+justify-content: center; 
+left: 0px;
+text-align: center;
+
+position: absolute;
+width: 100%;
+margin: 0px;
+z-index: 2;
+
+
+}
+#sveca {
+width: 15px; 
+}
+.dugmi {
+text-align: right;
+
+}
+.molitva {
+z-index: 2;
+text-align: center;	
+}
+
+button {
+border-radius: 10px;
+font-family: orto;
+width: 100px;
+margin-left: 10px;
+margin-right: 10px;
+height: 40px;
+background-color: #2d2a25;
+color: #c8bca5;
+border: 5px solid #c8bca5;
+font-size: 20px;
+
+}
+button:active {
+background-color: white;
+color: #1d3b6c;
+border: none;
+} 
+#zapali {
+margin: 0px;
+opacity: 0.5;
+font-size: 20px;
+}
+#amin {
+margin: 0px;
+}
+#ikona {
+ position: absolute;
+top: 0px;
+left: 0px;
+
+pointer-events: none;
+z-index: -1; 
+opacity: 0.3;
+width: 100%;
+height: 100vh; 
+object-fit: cover;
+}
+p {
+margin: 10px;
+
+
+}
+h2 {
+margin: 0px;
+margin-top: 20px;
+
+}
+
+</style>
+</head>
+<body id="telo">
+
+
+
+
+	<div class="dugmi">
+	<button onclick="window.location.href= 'pocetna.html'">Назад</button>
+	</div>
+    <div id="molitva" class="molitva">
+
+    </div>
+
+
+
+	<div id="svetlo" class="light" >
+		<div onclick="pozdrav()">	
+			<img id="sveca" src="sadrzaj/sveca.png" >
+			<p id="zapali">запали свећу</p>
+		</div>
+	</div>
+	
+
+    	<img src="ikone/СветиСава.jpeg" id="ikona">
+	<div class="obasjaj" id="obasjaj"></div>
+<script>
+	var sveca = 0;
+	var light = document.getElementById('obasjaj');
+        async function pozdrav() {
+            sveca = document.getElementById("sveca");
+		
+	    if (sveca.src.includes("sveca.png")) {
+		sveca.src = "sadrzaj/test.gif";
+		sveca = 1
+		svetlo()
+	    } else  {
+		
+		sveca.src = "sadrzaj/sveca.png";
+		sveca = 0;
+		light.style.background = 'none';
+		await sleep(200)		
+		}
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function svetlo() {
+            
+            while (sveca) {    
+		
+		rm = Math.floor(Math.random() * (351 - 300)) + 310;
+	 	light.style.background = `linear-gradient(to top, rgba(255, 255, 0, 0.${rm}) -180%, rgba(255, 255, 0, 0) 100%)`;
+
+                if (sveca) {await sleep(100); }        
+
+            }
+        } 
+
+async function kolacici() {
+	if (document.cookie != "" ) {
+		const ucitenje = JSON.parse(document.cookie);
+
+		document.getElementById('ikona').src = "ikone/" + ucitenje.zastitnik + ".jpg";
+		telo = document.getElementById('telo');
+		telo.style.fontFamily = ucitenje.font;
+		telo.style.fontSize = ucitenje.fonts+"px";
+	}
+
+}
+async function main() {
+
+	await kolacici();
+	await ucitaj();
+	
+	document.getElementById('obasjaj').style.height = `${document.documentElement.scrollHeight}px`;
+	document.getElementById('ikona').style.height = `${document.documentElement.scrollHeight}px`;
+	svetlo5 = document.getElementById('svetlo')
+	var pozicija = document.documentElement.scrollHeight - 130;
+	svetlo5.style.top = pozicija + "px"
+		
+
+} main()
+
+
+async function ucitaj() { 
+
+	
+	const url = new URL(window.location.href);
+
+
+	const qValue = url.searchParams.get('м');
+
+	
+	console.log(qValue);
+	const file = "molitve/"+qValue+".txt"; 
+	await fetch(file)
+	    .then(response => {
+		if (!response.ok) {
+		    throw new Error('грешка фатална ' + response.status);
+		}
+		return response.text(); 
+	    })
+	    .then(text => {
+		const lines = text.split('\n'); 
+
+		const outputDiv = document.getElementById('molitva');
+		outputDiv.innerHTML = '';
+
+		
+		if (lines.length > 0) {
+		    const h1 = document.createElement('h2');
+		    h1.textContent = lines[0]; 
+		    outputDiv.appendChild(h1);
+		}
+
+		
+		for (let i = 1; i < lines.length; i++) {
+	
+			
+			const p = document.createElement('p');
+			p.textContent = lines[i]; 
+			outputDiv.appendChild(p);
+		
+		}
+	    })
+	    .catch(error => {
+		console.error('greska', error);
+	});
+}
+		
+
+
+        
+</script>
+</body>
+</html>
